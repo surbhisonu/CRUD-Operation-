@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+	.container{
+		background-color:rgb(224, 224, 235);
+	}   
+</style>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+<body style ="background-image: url(/home/surbhi/newproject/img.jpg)">        
+<div class="container col-lg-4 col-lg-offset-4">
+<h2>Student Data</h2>  
+   <form>
+    <div class="form-group col-lg-4" >
+             regNo:<input type="text" id="reg"><br></br>
+             rollNo:<input type="number" id="roll"><br></br>
+             firstName:<input type="string" id="fname"><br><br>
+             lastname:<input type="text" id="lname"><br><br>
+             age:<input type="number" id="age"><br><br>
+             college :<input type="string" id="clgname"><br><br>
+             city:<input type="text" id="cty"><br><br>
+             country:<input type="text" id="cnty"><br><br>
+             state:<input type="text" id="st"><br><br> 
+             <input class="btn btn-primary" type="submit" id="btn">
+    </div>
+    </form>
+ </div>
+
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+
+      $('#btn').click(function () {
+     
+      var student ={
+      	regNo:  $("#reg").val(),
+      	rollNo: $("#roll").val(),
+      	name: {
+      		     firstName: $("#fname").val(),
+      	         lastName: $("#lname").val(),
+      	      },
+      	age:     $("#age").val(),
+      	college :$("#clgname").val(),
+      	address:{
+                  city: $("#cty").val(),
+                  country:$("#cnty").val(),
+                  state:$("#st").val(),
+      	        },
+      }
+        $.ajax({
+                type:"POST",
+                cache:false,
+                url:'/student/add',
+                data:student,    // multiple data sent using ajax
+                success: function (result)
+                 {
+                 	console.log(result)
+                   alert(result);
+                 }
+              });
+        return false;
+      });
+    });
+    </script>
+</body>
+</html>

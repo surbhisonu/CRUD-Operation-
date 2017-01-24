@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<html>
+<body style="background-image: /home/surbhi/newproject/">
+<form>
+<div class="row col-lg-4 col-lg-offset-4">
+ <div class="form-group">
+   <div> <br>regNo:<input type="text" class="form-control" id="reg"  value="<%= student.regNo%>"> </div>
+   <div>rollNo:<input type="number" class="form-control" id="roll" value="<%= student.rollNo%>" ></div> 
+    <div>firstName:<input type="string" class="form-control" class="form-control" id="fname" value="<%= student.name.firstName%>"></div>
+    <div>lastname:<input type="text" class="form-control" id="lname" value="<%= student.name.lastName%> "></div>
+    <div>age:<input type="number" class="form-control" id="age" value="<%= student.age%>"></div>
+    <div>college :<input type="string" class="form-control" id="clgname" value="<%= student.college%>"></div>
+    <div>city:<input type="text" class="form-control" id="cty" value="<%= student.address.city%>"></div>
+    <div>country:<input type="text" class="form-control" id="cnty" value="<%= student.address.country%>"></div>
+    <div>state:<input type="text" class="form-control" id="st" value="<%= student.address.state%>"></div>
+       <div><br><button id="btn" class="btn btn-info">Update Your Details</button></div>
+  </div>
+  </div>
+  </form>
+
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function() {
+
+      $('#btn').click(function () {
+     console.log(123)
+      var student ={
+        regNo:  $("#reg").val(),
+        rollNo: $("#roll").val(),
+        name: {
+               firstName: $("#fname").val(),
+                 lastName: $("#lname").val(),
+              },
+        age:     $("#age").val(),
+        college :$("#clgname").val(),
+        address:{
+                  city: $("#cty").val(),
+                  country:$("#cnty").val(),
+                  state:$("#st").val(),
+                },
+      }
+
+        $.ajax({
+                type:"PUT",
+                cache:false,
+                url:'/student/edit/' +"<%= student._id %>",
+                data:student,    // multiple data sent using ajax
+                success: function (result)
+                 {
+                  if(result.error){
+                    alert("coudlnt update")
+                  }
+                  window.location.href='/student/list/';
+                 }
+              });
+        return false;
+      });
+    });
+    </script>
+</body>
+</html>
